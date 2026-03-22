@@ -1,0 +1,12 @@
+/content
+/node_modules
+/vendor
+/storage
+/public/assets/build
+/public/media
+/tests/
+
+/ray.php
+/.htaccess
+/.gitignore
+/.editorconfig

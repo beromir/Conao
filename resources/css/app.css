@@ -1,0 +1,84 @@
+@import 'tailwindcss';
+
+/* Fonts */
+@import './fonts/inter.css';
+
+/* Components */
+@import './components/popover.css';
+
+@source '../js/**/*.{svelte,js,ts}';
+@source '../views/**/*.blade.php';
+
+@theme {
+    --font-sans: InterVariable, sans-serif;
+
+    --color-gray-*: initial;
+    --color-black: var(--color-neutral-900);
+
+    --color-primary-50: oklch(97% 0.03 185);
+    --color-primary-100: oklch(93% 0.06 185);
+    --color-primary-200: oklch(85% 0.12 185);
+    --color-primary-300: oklch(75% 0.16 185);
+    --color-primary-400: oklch(65% 0.18 185);
+    --color-primary-500: oklch(55% 0.16 185);
+    --color-primary-600: oklch(45% 0.13 185);
+    --color-primary-700: oklch(37% 0.11 185);
+    --color-primary-800: oklch(27% 0.08 185);
+    --color-primary-900: oklch(21% 0.06 185);
+    --color-primary-950: oklch(15% 0.04 185);
+
+    --color-neutral-50: var(--color-taupe-50);
+    --color-neutral-100: var(--color-taupe-100);
+    --color-neutral-200: var(--color-taupe-200);
+    --color-neutral-300: var(--color-taupe-300);
+    --color-neutral-400: var(--color-taupe-400);
+    --color-neutral-500: var(--color-taupe-500);
+    --color-neutral-600: var(--color-taupe-600);
+    --color-neutral-700: var(--color-taupe-700);
+    --color-neutral-800: var(--color-taupe-800);
+    --color-neutral-900: var(--color-taupe-900);
+    --color-neutral-950: var(--color-taupe-950);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@custom-variant hover {
+    &:where(:hover, :focus-visible) {
+        @media (hover: hover) {
+            @slot;
+        }
+    }
+}
+
+@custom-variant icon (& [data-role="icon"]);
+
+@layer base {
+    body {
+        background-color: var(--color-neutral-50);
+        color: var(--color-black);
+
+        @variant dark {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+        &:has(dialog[open]) {
+            overflow: hidden;
+        }
+    }
+
+    button,
+    a {
+        &:focus-visible {
+            outline: none;
+        }
+    }
+}
+
+@layer utilities {
+    .container {
+        margin-inline: auto;
+        padding-inline: --spacing(4);
+        max-width: var(--container-5xl);
+    }
+}

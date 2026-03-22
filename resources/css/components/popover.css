@@ -1,0 +1,61 @@
+/*
+    Size
+ */
+.anchor-width {
+    width: anchor-size(width);
+}
+
+/*
+    Position
+ */
+/* Top */
+.top-start {
+    position-area: top span-right;
+}
+
+.top {
+    position-area: top center;
+}
+
+.top-end {
+    position-area: top span-left;
+}
+
+/* Right */
+.right-start {
+    position-area: right span-bottom;
+}
+
+.right {
+    position-area: right center;
+}
+
+.right-end {
+    position-area: right span-top;
+}
+
+/* Bottom */
+.bottom-start {
+    position-area: bottom span-right;
+}
+
+.bottom {
+    position-area: bottom center;
+}
+
+.bottom-end {
+    position-area: bottom span-left;
+}
+
+/* Left */
+.left-start {
+    position-area: left span-bottom;
+}
+
+.left {
+    position-area: left center;
+}
+
+.left-end {
+    position-area: left span-top;
+}
