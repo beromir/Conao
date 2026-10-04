@@ -20,7 +20,7 @@
 
     function store(e: any) {
         e.preventDefault();
-        $form.post(route('tasks.store'), {
+        form.post(route('tasks.store'), {
             onSuccess: () => {
                 refreshTaskLists();
                 reset();
@@ -29,7 +29,7 @@
     }
 
     function reset() {
-        $form.resetAndClearErrors();
+        form.resetAndClearErrors();
     }
 </script>
 
@@ -39,14 +39,14 @@
             <Label class="sr-only">Task title</Label>
             <Input
                 type="text"
-                bind:value={$form.title}
+                bind:value={form.title}
                 required
                 autoComplete="off"
                 placeholder="New task"
-                invalid={!!$form.errors.title}
+                invalid={!!form.errors.title}
                 class="mt-0!"
             />
-            {$form.errors.title && $form.errors.title}
+            {form.errors.title && form.errors.title}
         </Field>
 
         <Button type="submit">

@@ -22,14 +22,14 @@
     });
 
     function handleCreateTaskListGroup(taskListId: number) {
-        $form.taskListId = taskListId.toString();
+        form.taskListId = taskListId.toString();
 
         dialog.show();
     }
 
     function handleEditTaskListGroup(taskListGroupToEdit: TaskListGroup) {
-        $form.title = taskListGroupToEdit.title;
-        $form.taskListId = taskListGroupToEdit.taskListId.toString();
+        form.title = taskListGroupToEdit.title;
+        form.taskListId = taskListGroupToEdit.taskListId.toString();
 
         isEditing = true;
         taskListGroup = taskListGroupToEdit;
@@ -40,7 +40,7 @@
         e.preventDefault();
 
         if (isEditing) {
-            $form.patch(route('taskListGroups.update', taskListGroup?.id), {
+            form.patch(route('taskListGroups.update', taskListGroup?.id), {
                 onSuccess: () => {
                     reset();
                 },
@@ -49,7 +49,7 @@
             return;
         }
 
-        $form.post(route('taskListGroups.store'), {
+        form.post(route('taskListGroups.store'), {
             onSuccess: () => {
                 reset();
             },
@@ -59,7 +59,7 @@
     function reset() {
         dialog.hide();
 
-        $form.resetAndClearErrors();
+        form.resetAndClearErrors();
         isEditing = false;
         taskListGroup = null;
     }
@@ -75,13 +75,13 @@
         <FieldGroup>
             <Field id="title">
                 <Label>Title</Label>
-                <Input type="text" bind:value={$form.title} required placeholder="Group title" invalid={!!$form.errors.title} />
-                {$form.errors.title && $form.errors.title}
+                <Input type="text" bind:value={form.title} required placeholder="Group title" invalid={!!form.errors.title} />
+                {form.errors.title && form.errors.title}
             </Field>
         </FieldGroup>
 
         <DialogFooter>
-            <Button type="submit" disabled={$form.processing}>{isEditing ? 'Edit' : 'Create'}</Button>
+            <Button type="submit" disabled={form.processing}>{isEditing ? 'Edit' : 'Create'}</Button>
         </DialogFooter>
     </form>
 </Dialog>

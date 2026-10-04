@@ -23,5 +23,4 @@
         'dark:bg-neutral-800/70 dark:ring-neutral-700',
         'dark:group-hover:ring-neutral-600 dark:hover:ring-neutral-600',
         props.class,
-    )}
-></textarea>
+    )}></textarea>

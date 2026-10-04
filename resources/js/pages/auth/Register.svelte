@@ -24,8 +24,8 @@
     function handleSubmit(e: Event) {
         e.preventDefault();
 
-        $form.post(route('register'), {
-            onFinish: () => $form.reset('password', 'password_confirmation'),
+        form.post(route('register'), {
+            onFinish: () => form.reset('password', 'password_confirmation'),
         });
     }
 </script>
@@ -34,22 +34,22 @@
     <FieldGroup>
         <Field id="name">
             <Label>Name</Label>
-            <Input bind:value={$form.name} placeholder="Name" required />
+            <Input bind:value={form.name} placeholder="Name" required />
         </Field>
 
         <Field id="email">
             <Label>Email address</Label>
-            <Input type="email" bind:value={$form.email} placeholder="Email" required autocomplete="email" />
+            <Input type="email" bind:value={form.email} placeholder="Email" required autocomplete="email" />
         </Field>
 
         <Field id="password">
             <Label>Password</Label>
-            <Input type="password" bind:value={$form.password} placeholder="Password" required autocomplete="new-password" />
+            <Input type="password" bind:value={form.password} placeholder="Password" required autocomplete="new-password" />
         </Field>
 
         <Field id="confirm-password">
             <Label>Confirm password</Label>
-            <Input type="password" bind:value={$form.password_confirmation} placeholder="Confirm password" required autocomplete="new-password" />
+            <Input type="password" bind:value={form.password_confirmation} placeholder="Confirm password" required autocomplete="new-password" />
         </Field>
 
         <Button type="submit" color="primary" class="w-full!">Create account</Button>

@@ -25,8 +25,8 @@
     function handleSubmit(e: Event) {
         e.preventDefault();
 
-        $form.post(route('login'), {
-            onFinish: () => $form.reset('password'),
+        form.post(route('login'), {
+            onFinish: () => form.reset('password'),
         });
     }
 </script>
@@ -35,16 +35,16 @@
     <FieldGroup>
         <Field id="email">
             <Label>Email address</Label>
-            <Input type="email" bind:value={$form.email} placeholder="Email" required autocomplete="email" />
+            <Input type="email" bind:value={form.email} placeholder="Email" required autocomplete="email" />
         </Field>
 
         <Field id="password">
             <Label>Password</Label>
-            <Input type="password" bind:value={$form.password} placeholder="Password" required autocomplete="current-password" />
+            <Input type="password" bind:value={form.password} placeholder="Password" required autocomplete="current-password" />
         </Field>
 
         <CheckboxField id="remember">
-            <Checkbox bind:checked={$form.remember} />
+            <Checkbox bind:checked={form.remember} />
             <Label>Remember me</Label>
         </CheckboxField>
 

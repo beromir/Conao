@@ -12,7 +12,7 @@
 
 <div class={taskList.parentTaskListId ? 'mt-0.5 ml-5' : ''}>
     <DropTarget accept={(event) => checkDropItemType(event, Model.Task)} drop={(event) => handleMoveEvent(event, taskList)}>
-        <SidebarItem href={route('taskLists.show', taskList.id)} current={route('taskLists.show', taskList.id).includes($page.url)}>
+        <SidebarItem href={route('taskLists.show', taskList.id)} current={route('taskLists.show', taskList.id).includes(page.url)}>
             {taskList.title}
 
             {#if taskList.tasksCount}

@@ -27,8 +27,8 @@
     }
 
     function handleEditTaskList(taskListToEdit: TaskList) {
-        $form.title = taskListToEdit.title;
-        $form.parentTaskListId = taskListToEdit.parentTaskListId;
+        form.title = taskListToEdit.title;
+        form.parentTaskListId = taskListToEdit.parentTaskListId;
 
         isEditing = true;
         taskList = taskListToEdit;
@@ -38,7 +38,7 @@
 
     function handleSelectTaskList() {
         dispatchCustomEvent('taskLists.select', {
-            selected: $form.parentTaskListId,
+            selected: form.parentTaskListId,
             disabled: taskList?.id,
             options: {
                 modalTitle: 'Select List',
@@ -48,7 +48,7 @@
         window.addEventListener(
             'taskLists.selected',
             (e) => {
-                $form.parentTaskListId = e.detail ?? '';
+                form.parentTaskListId = e.detail ?? '';
             },
             { once: true },
         );
@@ -58,7 +58,7 @@
         e.preventDefault();
 
         if (isEditing && taskList) {
-            $form.patch(route('taskLists.update', taskList.id), {
+            form.patch(route('taskLists.update', taskList.id), {
                 onSuccess: () => {
                     refreshTaskLists();
                     reset();
@@ -68,7 +68,7 @@
             return;
         }
 
-        $form.post(route('taskLists.store'), {
+        form.post(route('taskLists.store'), {
             onSuccess: () => {
                 refreshTaskLists();
                 reset();
@@ -79,7 +79,7 @@
     function reset() {
         dialog.hide();
 
-        $form.resetAndClearErrors();
+        form.resetAndClearErrors();
         isEditing = false;
         taskList = null;
     }
@@ -92,20 +92,20 @@
         <FieldGroup>
             <Field id="title">
                 <Label>Title</Label>
-                <Input type="text" bind:value={$form.title} required placeholder="List title" invalid={!!$form.errors.title} />
-                {$form.errors.title && $form.errors.title}
+                <Input type="text" bind:value={form.title} required placeholder="List title" invalid={!!form.errors.title} />
+                {form.errors.title && form.errors.title}
             </Field>
             <Field id="parent-list">
                 <Label>Parent list</Label>
                 <Button onclick={handleSelectTaskList} class="w-full!">
-                    {$form.parentTaskListId ? '1 list selected' : 'Select list'}
+                    {form.parentTaskListId ? '1 list selected' : 'Select list'}
                 </Button>
-                {$form.errors.parentTaskListId && $form.errors.parentTaskListId}
+                {form.errors.parentTaskListId && form.errors.parentTaskListId}
             </Field>
         </FieldGroup>
 
         <DialogFooter>
-            <Button type="submit" disabled={$form.processing}>{isEditing ? 'Edit' : 'Create'}</Button>
+            <Button type="submit" disabled={form.processing}>{isEditing ? 'Edit' : 'Create'}</Button>
         </DialogFooter>
     </form>
 </Dialog>

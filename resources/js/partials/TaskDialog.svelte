@@ -41,20 +41,20 @@
     });
 
     function handleCreateTask(newTask: Task) {
-        $form.parentListId = newTask.parentListId;
-        $form.parentListType = newTask.parentListType;
+        form.parentListId = newTask.parentListId;
+        form.parentListType = newTask.parentListType;
 
         dialog.show();
     }
 
     function handleEditTask(editedTask: Task) {
-        $form.title = editedTask.title;
-        $form.plannedFor = editedTask.plannedFor ?? '';
-        $form.deadline = editedTask.deadline ?? '';
-        $form.checklist = editedTask.checklist ?? [];
-        $form.notes = editedTask.notes ?? '';
-        $form.parentListId = editedTask.parentListId;
-        $form.parentListType = editedTask.parentListType;
+        form.title = editedTask.title;
+        form.plannedFor = editedTask.plannedFor ?? '';
+        form.deadline = editedTask.deadline ?? '';
+        form.checklist = editedTask.checklist ?? [];
+        form.notes = editedTask.notes ?? '';
+        form.parentListId = editedTask.parentListId;
+        form.parentListType = editedTask.parentListType;
 
         isEditing = true;
         task = editedTask;
@@ -63,14 +63,14 @@
 
     function handleSelectTaskList() {
         dispatchCustomEvent('taskLists.select', {
-            selected: $form.parentListId,
+            selected: form.parentListId,
         });
 
         window.addEventListener(
             'taskLists.selected',
             (e) => {
-                $form.parentListType = e.detail ? Model.TaskList : '';
-                $form.parentListId = e.detail ?? '';
+                form.parentListType = e.detail ? Model.TaskList : '';
+                form.parentListId = e.detail ?? '';
             },
             { once: true },
         );
@@ -80,7 +80,7 @@
         e.preventDefault();
 
         if (isEditing && task) {
-            $form.patch(route('tasks.update', task.id), {
+            form.patch(route('tasks.update', task.id), {
                 onSuccess: () => {
                     refreshTaskLists();
                     reset();
@@ -90,7 +90,7 @@
             return;
         }
 
-        $form.post(route('tasks.store'), {
+        form.post(route('tasks.store'), {
             onSuccess: () => {
                 refreshTaskLists();
                 reset();
@@ -103,8 +103,8 @@
             return;
         }
 
-        $form.checklist = [
-            ...$form.checklist,
+        form.checklist = [
+            ...form.checklist,
             {
                 id: crypto.randomUUID(),
                 title: checklistTaskTitle,
@@ -116,7 +116,7 @@
     }
 
     function handleChecklistTaskCheck(id: string) {
-        $form.checklist = $form.checklist.map((checklistTask) => {
+        form.checklist = form.checklist.map((checklistTask) => {
             return checklistTask.id === id
                 ? {
                       ...checklistTask,
@@ -136,7 +136,7 @@
             return;
         }
 
-        $form.checklist = $form.checklist.map((checklistTask) => {
+        form.checklist = form.checklist.map((checklistTask) => {
             return checklistTask.id === checklistTaskIdToEdit ? { ...checklistTask, title: checklistTaskTitle } : checklistTask;
         });
 
@@ -145,7 +145,7 @@
     }
 
     function handleDeleteChecklistTask() {
-        $form.checklist = $form.checklist.filter((checklistTask) => checklistTask.id !== checklistTaskIdToEdit);
+        form.checklist = form.checklist.filter((checklistTask) => checklistTask.id !== checklistTaskIdToEdit);
 
         checklistTaskIdToEdit = '';
         checklistTaskTitle = '';
@@ -165,7 +165,7 @@
     function reset() {
         dialog.hide();
 
-        $form.resetAndClearErrors();
+        form.resetAndClearErrors();
         isEditing = false;
         checklistTaskIdToEdit = '';
         checklistTaskTitle = '';
@@ -180,38 +180,38 @@
         <FieldGroup>
             <Field id="title">
                 <Label>Title</Label>
-                <Input type="text" bind:value={$form.title} required placeholder="Task title" />
-                {$form.errors.title && $form.errors.title}
+                <Input type="text" bind:value={form.title} required placeholder="Task title" />
+                {form.errors.title && form.errors.title}
             </Field>
 
             <div class="grid grid-cols-2 gap-x-3">
                 <Field id="planned-for">
                     <Label>Planned for</Label>
-                    <Input type="date" bind:value={$form.plannedFor} />
-                    {$form.errors.title && $form.errors.plannedFor}
+                    <Input type="date" bind:value={form.plannedFor} />
+                    {form.errors.title && form.errors.plannedFor}
                 </Field>
                 <Field id="deadline">
                     <Label>Deadline</Label>
-                    <Input type="date" bind:value={$form.deadline} />
-                    {$form.errors.title && $form.errors.deadline}
+                    <Input type="date" bind:value={form.deadline} />
+                    {form.errors.title && form.errors.deadline}
                 </Field>
             </div>
 
             <Field id="parent-list">
                 <Label>Parent list</Label>
                 <Button onclick={handleSelectTaskList} class="w-full!">
-                    {$form.parentListId ? '1 list selected' : 'Select list'}
+                    {form.parentListId ? '1 list selected' : 'Select list'}
                 </Button>
-                {$form.errors.parentListId && $form.errors.parentListId}
-                {$form.errors.parentListType && $form.errors.parentListType}
+                {form.errors.parentListId && form.errors.parentListId}
+                {form.errors.parentListType && form.errors.parentListType}
             </Field>
 
             <Field id="checklist">
                 <Label class="mb-3 block">Checklist</Label>
 
-                {#if $form.checklist}
+                {#if form.checklist}
                     <div class="mb-4">
-                        {#each $form.checklist as checklistTask (checklistTask.id)}
+                        {#each form.checklist as checklistTask (checklistTask.id)}
                             <div class="flex items-center">
                                 <Checkbox
                                     onchange={() => handleChecklistTaskCheck(checklistTask.id)}
@@ -255,8 +255,8 @@
 
             <Field id="notes">
                 <Label>Notes</Label>
-                <Textarea bind:value={$form.notes} rows={4} />
-                {$form.errors.notes && $form.errors.notes}
+                <Textarea bind:value={form.notes} rows={4} />
+                {form.errors.notes && form.errors.notes}
             </Field>
         </FieldGroup>
 
@@ -264,7 +264,7 @@
             <Button onclick={handleDeleteTask} title="Delete task" class="mr-auto">
                 <Trash />
             </Button>
-            <Button type="submit" disabled={$form.processing}>
+            <Button type="submit" disabled={form.processing}>
                 {isEditing ? 'Edit' : 'Create'}
             </Button>
         </DialogFooter>

@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-    <title>{title} | {$page.props.appName}</title>
+    <title>{title} | {page.props.appName}</title>
 </svelte:head>
 
 <div class="flex min-h-screen">

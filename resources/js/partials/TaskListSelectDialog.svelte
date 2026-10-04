@@ -14,7 +14,7 @@
     let submitButtonTitle: string = $state('Select');
     let showDeselectButton: boolean = $state(true);
 
-    let taskLists: TaskList[] = $derived($page.props.taskLists);
+    let taskLists: TaskList[] = $derived(page.props.taskLists);
 
     async function handleInitSelectTaskList({
         selected,

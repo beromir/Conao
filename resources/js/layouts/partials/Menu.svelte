@@ -26,7 +26,7 @@
     import SidebarFooter from '@/components/solior/SidebarFooter.svelte';
     import SidebarBody from '@/components/solior/SidebarBody.svelte';
 
-    let taskLists: TaskList[] = $derived($page.props.taskLists);
+    let taskLists: TaskList[] = $derived(page.props.taskLists);
 
     let theme: Theme = $state(getTheme());
 
@@ -47,20 +47,20 @@
 <Sidebar>
     <SidebarBody>
         <SidebarSection>
-            <SidebarItem href={route('inbox')} current={route('inbox').includes($page.url)}>
+            <SidebarItem href={route('inbox')} current={route('inbox').includes(page.url)}>
                 <Inbox /> Inbox
             </SidebarItem>
-            <SidebarItem href={route('today')} current={route('today').includes($page.url)}>
+            <SidebarItem href={route('today')} current={route('today').includes(page.url)}>
                 <Star /> Today
             </SidebarItem>
-            <SidebarItem href={route('upcoming')} current={route('upcoming').includes($page.url)}>
+            <SidebarItem href={route('upcoming')} current={route('upcoming').includes(page.url)}>
                 <CalendarDays /> Upcoming
             </SidebarItem>
 
-            <SidebarItem href={route('closedTasks')} current={route('closedTasks').includes($page.url)}>
+            <SidebarItem href={route('closedTasks')} current={route('closedTasks').includes(page.url)}>
                 <CheckCircle /> Closed Tasks
             </SidebarItem>
-            <SidebarItem href={route('archive')} current={route('archive').includes($page.url)}>
+            <SidebarItem href={route('archive')} current={route('archive').includes(page.url)}>
                 <ArchiveBox /> Archive
             </SidebarItem>
         </SidebarSection>
