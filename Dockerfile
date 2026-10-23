@@ -1,7 +1,7 @@
-FROM node:24-alpine AS asset_builder
+FROM node:24.22-alpine AS asset_builder
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./
+COPY ./package.json ./package-lock.json ./.npmrc ./
 RUN npm install
 
 COPY ./vite.config.ts ./tsconfig.json ./
@@ -9,7 +9,7 @@ COPY ./resources ./resources
 RUN npm run build
 
 
-FROM dunglas/frankenphp:php8.5-alpine
+FROM dunglas/frankenphp:1.13-php8.5.12-alpine
 
 ENV SERVER_NAME=:80
 
@@ -24,10 +24,10 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
     apk add --no-cache git nano caddy
 
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+RUN composer install --no-dev --optimize-autoloader --no-plugins --no-scripts
 
 COPY . ./
-RUN composer run post-autoload-dump
+RUN composer run --no-plugins post-autoload-dump
 COPY --from=asset_builder /app/public/build ./public/build
 
 COPY ./Caddyfile /etc/frankenphp/Caddyfile
