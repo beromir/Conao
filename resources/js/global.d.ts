@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 import type { Task, TaskList, TaskListGroup } from '@/types';
 import { route as routeFn } from 'ziggy-js';
 
