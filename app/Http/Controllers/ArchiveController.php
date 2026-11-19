@@ -18,7 +18,7 @@ class ArchiveController extends Controller
                 ->where('user_id', auth()->id())
                 ->archived()
                 ->get()
-                ->transform(fn(TaskList $taskList) => $taskList->getData()),
+                ->transform(fn (TaskList $taskList) => $taskList->getData()),
         ]);
     }
 
@@ -30,7 +30,7 @@ class ArchiveController extends Controller
 
         $taskList = TaskList::find($taskListId);
 
-        if (!$taskList) {
+        if (! $taskList) {
             return back();
         }
 
@@ -47,7 +47,7 @@ class ArchiveController extends Controller
 
         $taskList = TaskList::find($taskListId);
 
-        if (!$taskList) {
+        if (! $taskList) {
             return back();
         }
 

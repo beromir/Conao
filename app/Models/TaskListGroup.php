@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class TaskListGroup extends Model
 {
-    public function taskList(): BelongsTo {
+    public function taskList(): BelongsTo
+    {
         return $this->belongsTo(TaskList::class);
     }
 

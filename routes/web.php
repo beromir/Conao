@@ -33,4 +33,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/task-lists/merge', [TaskListController::class, 'mergeTaskLists'])->name('taskLists.merge');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

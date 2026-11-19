@@ -36,7 +36,7 @@ class TaskListController extends Controller
     {
         $validated = $request->validated();
 
-        $taskList = new TaskList();
+        $taskList = new TaskList;
 
         $taskList->title = $validated['title'];
         $taskList->user_id = auth()->id();
@@ -58,17 +58,17 @@ class TaskListController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->where('user_id', auth()->id())
                 ->get()
-                ->transform(fn(Task $task) => $task->getData()),
+                ->transform(fn (Task $task) => $task->getData()),
             'taskListGroups' => $taskList->taskListGroups()
                 ->orderBy('title')
                 ->where('user_id', auth()->id())
                 ->get()
-                ->transform(fn(TaskListGroup $taskListGroup) => $taskListGroup->getData([
+                ->transform(fn (TaskListGroup $taskListGroup) => $taskListGroup->getData([
                     'tasks' => $taskListGroup->tasks()
                         ->orderBy('created_at', 'desc')
                         ->where('user_id', auth()->id())
                         ->get()
-                        ->transform(fn(Task $task) => $task->getData()),
+                        ->transform(fn (Task $task) => $task->getData()),
                 ])),
         ]);
     }
@@ -119,7 +119,7 @@ class TaskListController extends Controller
         $sourceTaskList = TaskList::find($sourceTaskListId);
         $targetTaskList = TaskList::find($targetTaskListId);
 
-        if (!$sourceTaskList || !$targetTaskList) {
+        if (! $sourceTaskList || ! $targetTaskList) {
             return back();
         }
 
@@ -133,15 +133,15 @@ class TaskListController extends Controller
             $task->save();
         }
 
-//        // Move sections
-//        $sections = $sourceList->sections;
-//
-//        /** @var Section $section */
-//        foreach ($sections as $section) {
-//            $section->parentList()->associate($targetList);
-//
-//            $section->save();
-//        }
+        //        // Move sections
+        //        $sections = $sourceList->sections;
+        //
+        //        /** @var Section $section */
+        //        foreach ($sections as $section) {
+        //            $section->parentList()->associate($targetList);
+        //
+        //            $section->save();
+        //        }
 
         $sourceTaskList->delete();
 

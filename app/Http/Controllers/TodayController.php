@@ -19,7 +19,7 @@ class TodayController extends Controller
                         ->orWhereDate('deadline', '<=', today());
                 })
                 ->get()
-                ->transform(fn(Task $task) => $task->getData(['parentListTitle' => $task->parentList?->title]))
+                ->transform(fn (Task $task) => $task->getData(['parentListTitle' => $task->parentList?->title])),
         ]);
     }
 }

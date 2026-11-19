@@ -15,7 +15,7 @@ class InboxController extends Controller
                 ->whereNull('parent_list_id')
                 ->whereNull('parent_list_type')
                 ->get()
-                ->transform(fn(Task $task) => $task->getData())
+                ->transform(fn (Task $task) => $task->getData()),
         ]);
     }
 }

@@ -113,7 +113,7 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|exists:App\Models\Task,id',
-            'state' => ['required',Rule::in(['open', 'closed'])]
+            'state' => ['required', Rule::in(['open', 'closed'])],
         ]);
 
         $id = $validated['id'];
@@ -137,7 +137,7 @@ class TaskController extends Controller
         $task = Task::find($validated['id']);
         $targetList = $validated['targetType']::find($validated['targetId']);
 
-        if (!$task || !$targetList) {
+        if (! $task || ! $targetList) {
             return back();
         }
 

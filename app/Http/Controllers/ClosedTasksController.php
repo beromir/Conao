@@ -14,7 +14,7 @@ class ClosedTasksController extends Controller
             ->where('user_id', auth()->id())
             ->where('state', 'closed')
             ->get()
-            ->transform(fn(Task $task) => $task->getData([
+            ->transform(fn (Task $task) => $task->getData([
                 'parentListTitle' => $task->parentList?->title,
                 'updatedAt' => $task->updated_at,
             ]));

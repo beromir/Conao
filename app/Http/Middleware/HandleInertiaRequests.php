@@ -38,10 +38,10 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $shared = parent::share($request);
-        $shared['appName'] = Inertia::once(fn() => config('app.name'));
+        $shared['appName'] = Inertia::once(fn () => config('app.name'));
 
         if (auth()->hasUser()) {
-            $shared['taskLists'] = Inertia::once(fn() => TaskList::orderBy('title')
+            $shared['taskLists'] = Inertia::once(fn () => TaskList::orderBy('title')
                 ->where('user_id', auth()->id())
                 ->notArchived()
                 ->withCount('openTasks')
@@ -49,7 +49,7 @@ class HandleInertiaRequests extends Middleware
                     $query->withCount('openTasks');
                 }])
                 ->get()
-                ->transform(fn(TaskList $taskList) => $taskList->getData(['tasksCount' => $taskList->open_tasks_count + $taskList->taskListGroups->sum('open_tasks_count')])));
+                ->transform(fn (TaskList $taskList) => $taskList->getData(['tasksCount' => $taskList->open_tasks_count + $taskList->taskListGroups->sum('open_tasks_count')])));
         }
 
         return $shared;
