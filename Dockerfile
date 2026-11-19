@@ -9,7 +9,7 @@ COPY ./resources ./resources
 RUN npm run build
 
 
-FROM dunglas/frankenphp:1.13-php8.5.12-alpine
+FROM dunglas/frankenphp:1.13-php8.5.13-alpine
 
 ENV SERVER_NAME=:80
 
